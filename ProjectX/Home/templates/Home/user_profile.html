@@ -1,0 +1,36 @@
+{% extends 'Home/base.html' %}
+
+{% block title %} BlogHome {% endblock title %}
+{% block body %}
+
+<h1 style="text-transform: uppercase;text-align:center">welcome {{user}}!</h1>
+<hr class="my-4">
+
+<div class="container my-3">
+    {% if user.is_authenticated %}
+    <div class="banner" style="padding:30px;">
+        <h2 class="heading-top">Create Your Post</h2>
+        <a href="/blog/createPost/" role="button" class="btn btn-primary btn-lg mt-3">Create post</a>
+    </div>
+    {% endif %}
+    <h2 class="my-4">Here Your Posts: </h2>
+    {% for post in allPosts  %}
+    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <img class="card-img-top" src="/media/{{post.image}}" alt="Card image cap" width="100%", height="auto">
+            <h3 class="mb-0">{{post.title}}</h3>
+            <strong class="d-inline-block my-2 text-primary">Article  by {{post.author}} / {{post.timeStamp}}</strong>
+            <div class="mb-1 text-muted">{{post.datetime}}</div>
+            <p class="card-text mb-auto">{{post.content| truncatechars:200}}</p>
+            <div class="my-2">
+            	<a href="/blog/{{post.slug}}" role="button" class="btn btn-info mt-3">Read More</a>
+            </div>
+            
+        </div>
+        </div>
+
+        {% endfor %}
+        
+    </div>
+
+{% endblock body %}

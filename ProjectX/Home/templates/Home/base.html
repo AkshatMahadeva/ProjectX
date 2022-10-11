@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous">
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>{% block title %} {% endblock title %}</title>
+    <style>
+      .button-bordered{
+        display: inline-block;
+        padding: 12px 20px;
+        text-decoration: none;
+        background-color: transparent;
+        border: 2px solid rgb(221, 24, 178);
+        border-radius: 5px;
+        color: rgb(221, 24, 178);
+        margin: 10px;
+        text-transform: uppercase;
+        max-width: 300px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    .button-filled{
+        border: none;
+        outline: none;
+        max-width: 300px;
+        display: inline-block;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        background-color: rgb(221, 24, 178);
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    .button-bordered:hover{
+        background-color: rgb(221, 24, 178);
+        color: #fff;
+    }
+    
+    .button-filled:hover{
+        background-color: transparent;
+        border: 2px solid rgb(221, 24, 178);
+        color: rgb(221, 24, 178);
+    }
+    
+      .banner{
+        top: 75px;
+        display: table;
+        color: #000;
+        width: 100%;
+        padding: 17% 0 10% 0;
+        text-align: center;
+        /* background-image: url("assets/images\ \(2\).jpeg"); */
+        background-color: #fff;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    
+    .heading-top{
+        font-size: 40px;
+        color: black; 
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+      .card-display{
+        display: inline-block;
+        color: #000;
+        width: 400px;
+        height: 400px;
+        background-color: #fff;
+        justify-content: space-between;
+        margin: 20px;
+        border-radius: 2px;
+        box-shadow: 20px 10px 20px 10px #ddd;
+    
+    }
+    
+    .flex-container{
+        display: flex;
+        flex-direction: row;
+        font-size: 30px;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+    .flex-item{
+        background-color: #fff;
+        flex: 25%;
+        margin: 10px;
+        box-shadow: 10px 20px 40px 20px #ccc;
+        padding-bottom: 20px;
+    }
+    
+    .flex-item:hover{
+        opacity: 0.8;
+    }
+    
+    .flex-item img{
+        width: 100%;
+        height: auto;
+    }
+    
+    .flex-item h4{
+        color: rgb(221, 24, 178);
+        padding: 10px 20px;
+        font-size: 20px;
+        text-align: left;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding: 15px 40px 15px 40px;">
+      <a class="navbar-brand mr-5" href="/">ProjectX</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item {% block homeactive %} {% endblock homeactive %}">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item {% block blogactive %} {% endblock blogactive %}">
+            <a class="nav-link" href="/blog">Blog</a>
+          </li>
+ 
+        </ul>
+        <form method="get" action="/search" class="form-inline my-2 my-lg-0
+          mx-3">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search"
+            aria-label="Search" name="query" id="query">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <!-- Button to  trigger SignUp modal -->
+
+        <!-- Button to  trigger Login modal -->
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-2">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href='#' id="navbarDropdown"
+              role="button" data-toggle="dropdown"> Welcome {{request.user}}</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/user_profile">Profile</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+
+            </div>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <!-- Button to  trigger Login modal -->
+      <button type="button" class="btn btn-light mr-2" data-toggle="modal"
+        data-target="#loginModal">
+        Login
+      </button>
+
+      <button type="button" class="btn btn-light mr-2" data-toggle="modal"
+        data-target="#signupModal">
+        SignUp
+      </button>
+
+      {% endif %}
+
+    </div>
+  </nav>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+    role="alert">
+    <strong>Message : </strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert"
+      aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+
+
+
+
+  <!-- SignUp Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1"
+    aria-labelledby="signupModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/signup" method='post'>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username"
+                name="username" placeholder="Choose a unique username"
+                required>
+            </div>
+ 
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email"
+                placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="pass1">Choose a password</label>
+              <input type="password" class="form-control" id="pass1"
+                name="pass1" placeholder="Choose Your Password" required>
+            </div>
+            <div class="form-group">
+              <label for="pass2">Confirm Password</label>
+              <input type="password" class="form-control" id="pass2"
+                name="pass2" placeholder="Enter your password again" required>
+            </div>
+
+
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container my-3">
+    {% block body %} {% endblock body %}
+  </div>
+
+  <hr class="my-5">
+  <footer class="container py-5 mt-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+        <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Cool stuff</a></li>
+          <li><a class="text-muted" href="#">Random feature</a></li>
+          <li><a class="text-muted" href="#">Team feature</a></li>
+          <li><a class="text-muted" href="#">Stuff for developers</a></li>
+          <li><a class="text-muted" href="#">Another one</a></li>
+          <li><a class="text-muted" href="#">Last time</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Resource</a></li>
+          <li><a class="text-muted" href="#">Resource name</a></li>
+          <li><a class="text-muted" href="#">Another resource</a></li>
+          <li><a class="text-muted" href="#">Final resource</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Business</a></li>
+          <li><a class="text-muted" href="#">Education</a></li>
+          <li><a class="text-muted" href="#">Government</a></li>
+          <li><a class="text-muted" href="#">Gaming</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Team</a></li>
+          <li><a class="text-muted" href="#">Locations</a></li>
+          <li><a class="text-muted" href="#">Privacy</a></li>
+          <li><a class="text-muted" href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1"
+    aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/login" method="POST">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="loginusername"
+                name="loginusername" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+              <label for="pass">Enter your password </label>
+              <input type="password" class="form-control" id="loginpassword"
+                name="loginpassword" placeholder="Enter your password" required>
+            </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+
+        
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+          crossorigin="anonymous"></script>
+        <script
+          src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+          integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+          crossorigin="anonymous"></script>
+        <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+          crossorigin="anonymous"></script>
+
+      </body>
+    </html>
